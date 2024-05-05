@@ -36,16 +36,19 @@ public class ProfilePage {
 
     @Step("Клик логотипа")
     public void clickMainLogo() {
+        LoadingAnimation.waitForLoadingAnimation(driver);
         driver.findElement(mainLogo).click();
     }
 
     @Step("Клик ссылки 'Конструктор'")
     public void clickConstructorLink() {
+        LoadingAnimation.waitForLoadingAnimation(driver);
         driver.findElement(constructorLink).click();
     }
 
     @Step("Клик кнопки 'Выход'")
     public void clickExit() {
+        LoadingAnimation.waitForLoadingAnimation(driver);
         driver.findElement(exitButton).click();
     }
 
