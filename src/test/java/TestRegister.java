@@ -4,7 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import model.api.UserApi;
 import model.body.LoginRequestBody;
-import model.pageObject.RegisterPage;
+import model.pageobject.RegisterPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

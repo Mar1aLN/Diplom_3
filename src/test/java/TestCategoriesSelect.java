@@ -1,10 +1,11 @@
+import constants.MenuSections;
 import constants.SiteUrls;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import model.api.UserApi;
 import model.body.LoginRequestBody;
 import model.body.RegisterRequestBody;
-import model.pageObject.MainPage;
+import model.pageobject.MainPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,7 +69,7 @@ public class TestCategoriesSelect {
 
         mainPage.waitAndClickBunsLink();
 
-        Assert.assertTrue("Не был выполнен скролл к разделу меню", mainPage.isBunsVisible());
+        Assert.assertEquals("Не был выполнен скролл к разделу меню", MenuSections.BUNS_TEXT.toLowerCase(), mainPage.getCurrentSectionText().toLowerCase());
     }
 
     @Test()
@@ -77,7 +78,7 @@ public class TestCategoriesSelect {
 
         mainPage.waitAndClickSaucesLink();
 
-        Assert.assertTrue("Не был выполнен скролл к разделу меню", mainPage.isSaucesVisible());
+        Assert.assertEquals("Не был выполнен скролл к разделу меню", MenuSections.SAUCES_TEXT.toLowerCase(), mainPage.getCurrentSectionText().toLowerCase());
     }
 
     @Test()
@@ -85,7 +86,8 @@ public class TestCategoriesSelect {
         Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Ингредиенты. " + comment));
 
         mainPage.waitAndClickIngredientsLink();
-        Assert.assertTrue("Не был выполнен скролл к разделу меню", mainPage.isIngredientsVisible());
+
+        Assert.assertEquals("Не был выполнен скролл к разделу меню", MenuSections.INGREDIENTS_TEXT.toLowerCase(),mainPage.getCurrentSectionText().toLowerCase());
     }
 
     @After

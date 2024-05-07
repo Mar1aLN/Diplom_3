@@ -6,10 +6,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class YandexDriverHelper implements WebDriverHelper {
-
     @Override
     public WebDriver setUpDriver() {
-        String binaryYandexDriverPath = "yandexdriver.exe";
+        String binaryYandexDriverPath = PropertiesHelper.getPropertyValue("yandexDriver.binary");
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary(binaryYandexDriverPath);
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
