@@ -17,12 +17,12 @@ public class WebDriverHelperFactory {
         driversMap.put(BrowserTypes.BrowserType.YANDEX_BROWSER, new YandexDriverHelper());
     }
 
-    @Step("Получение нужного объекта из справочника по переданному enum")
+    @Step("Получение нужного объекта WebDriverHelper по переданному enum")
     public WebDriverHelper createWebDriverHelper(BrowserTypes.BrowserType browserType){
         return driversMap.get(browserType);
     }
 
-    @Step("Получение типа браузера из .properties с преобразование в enum")
+    @Step("Получение типа браузера из .properties с преобразованием в enum, вызов получения WebDriverHelper по enum")
     public WebDriverHelper createWebDriverHelper(){
         BrowserTypes.BrowserType browserType = BrowserTypes.BrowserType.valueOf( PropertiesHelper.getPropertyValue("browserType"));
 

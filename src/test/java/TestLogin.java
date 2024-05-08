@@ -56,8 +56,8 @@ public class TestLogin {
     @Parameterized.Parameters(name = "{4}")
     public static Object[][] parameters() {
         return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка."},
-                {"Nikitina3@email.org", "123456", "Мария", false, "Негативная проверка, неправильный пароль."},
+                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка"},
+                {"Nikitina3@email.org", "123456", "Мария", false, "Негативная проверка, неправильный пароль"},
         };
     }
 

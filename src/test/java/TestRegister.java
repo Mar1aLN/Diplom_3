@@ -44,10 +44,10 @@ public class TestRegister {
     @Parameterized.Parameters(name = "{4}")
     public static Object[][] parameters() {
         return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка регистрации: пароль 6 символов. Chrome"},
-                {"Nikitina3@email.org", "1234567", "Мария", true, "Позитивная проверка регистрации: пароль 7 символов. Chrome"},
-                {"Nikitina3@email.org", "12345", "Мария", false, "Негативная проверка регистрации: пароль 5 символов. Chrome"},
-                {"Nikitina3@email.org", "1", "Мария", false, "Негативная проверка регистрации: пароль 1 символ. Chrome"},
+                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка регистрации: пароль 6 символов"},
+                {"Nikitina3@email.org", "1234567", "Мария", true, "Позитивная проверка регистрации: пароль 7 символов"},
+                {"Nikitina3@email.org", "12345", "Мария", false, "Негативная проверка регистрации: пароль 5 символов"},
+                {"Nikitina3@email.org", "1", "Мария", false, "Негативная проверка регистрации: пароль 1 символ"},
         };
     }
 
