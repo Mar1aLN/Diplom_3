@@ -2,7 +2,7 @@
 Тип браузера указывается в файле src/test/resources/application.properties
 в параметре browserType
 доступные значения:
-YANDEX_BROWSER 
+YANDEX_BROWSER
 CHROME
 
 Для тестирования Яндекс.Браузер требуется установленный YandexDriver 24.1.0, доступный по ссылке:
