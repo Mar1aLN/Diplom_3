@@ -18,15 +18,16 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import service.ChromeDriverHelper;
 import service.WebDriverHelper;
+import service.WebDriverHelperFactory;
 import service.YandexDriverHelper;
 
 @RunWith(Parameterized.class)
 public class TestLogin {
     private static final String mainPage = SiteUrls.STELLAR_BURGERS_URL;
 
-    private final String registerPageUrl = ApiUrls.STELLAR_BURGERS_URL + SiteUrls.REGISTER_URL;
+    private static final String REGISTER_PAGE_URL = ApiUrls.STELLAR_BURGERS_URL + SiteUrls.REGISTER_URL;
 
-    private final String forgotPasswordUrl = ApiUrls.STELLAR_BURGERS_URL + SiteUrls.FORGOT_PASSWORD_URL;
+    private static final String FORGOT_PASSWORD_URL = ApiUrls.STELLAR_BURGERS_URL + SiteUrls.FORGOT_PASSWORD_URL;
 
     private final String email;
 
@@ -42,22 +43,21 @@ public class TestLogin {
 
     private WebDriver driver;
 
-    public TestLogin(String email, String password, String username, WebDriverHelper webDriverHelper, boolean isSuccessExpected, String comment) {
+    public TestLogin(String email, String password, String username, boolean isSuccessExpected, String comment) {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.webDriverHelper = webDriverHelper;
         this.isSuccessExpected = isSuccessExpected;
         this.comment = comment;
+
+        this.webDriverHelper = new WebDriverHelperFactory().createWebDriverHelper();
     }
 
-    @Parameterized.Parameters(name = "{5}")
+    @Parameterized.Parameters(name = "{4}")
     public static Object[][] parameters() {
         return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", new ChromeDriverHelper(), true, "Позитивная проверка. Chrome"},
-                {"Nikitina3@email.org", "123456", "Мария", new YandexDriverHelper(), true, "Позитивная проверка. Яндекс.Браузер"},
-                {"Nikitina3@email.org", "123456", "Мария", new ChromeDriverHelper(), false, "Негативная проверка, неправильный пароль. Chrome"},
-                {"Nikitina3@email.org", "123456", "Мария", new YandexDriverHelper(), false, "Негативная проверка, неправильный пароль. Яндекс.Браузер"},
+                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка."},
+                {"Nikitina3@email.org", "123456", "Мария", false, "Негативная проверка, неправильный пароль."},
         };
     }
 
@@ -70,7 +70,7 @@ public class TestLogin {
 
     @Test
     public void testMainPagePersonalAccountPage() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку 'Лисный кабинет' главной страницы. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку 'Лисный кабинет' главной страницы. " + comment + "." + webDriverHelper.getCaption()));
         driver.get(TestLogin.mainPage);
         MainPage mainPage = new MainPage(driver);
         mainPage.waitAndClickPersonalCabinetButton();
@@ -80,7 +80,7 @@ public class TestLogin {
 
     @Test
     public void testMainPageEnterAccountPage() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку 'Войти в аккаунт' главной страницы. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку 'Войти в аккаунт' главной страницы. " + comment + "." + webDriverHelper.getCaption()));
         driver.get(TestLogin.mainPage);
         MainPage mainPage = new MainPage(driver);
         mainPage.waitAndClickEnterAccountButton();
@@ -90,8 +90,8 @@ public class TestLogin {
 
     @Test
     public void testLoginFromRegisterPage() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку в форме регистрации. " + comment));
-        driver.get(registerPageUrl);
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку в форме регистрации. " + comment + "." + webDriverHelper.getCaption()));
+        driver.get(REGISTER_PAGE_URL);
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.clickLoginLink();
         LoginPage loginPage = new LoginPage(driver);
@@ -100,8 +100,8 @@ public class TestLogin {
 
     @Test
     public void testLoginFromForgotPasswordPage() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку в форме сброса пароля. " + comment));
-        driver.get(forgotPasswordUrl);
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Вход через кнопку в форме сброса пароля. " + comment + "." + webDriverHelper.getCaption()));
+        driver.get(FORGOT_PASSWORD_URL);
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         forgotPasswordPage.waitAndClickLogin();
         LoginPage loginPage = new LoginPage(driver);

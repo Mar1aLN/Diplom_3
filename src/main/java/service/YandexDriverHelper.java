@@ -6,6 +6,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class YandexDriverHelper implements WebDriverHelper {
+    private final String caption = "Яндекс.Браузер";
+
     @Override
     public WebDriver setUpDriver() {
         String binaryYandexDriverPath = PropertiesHelper.getPropertyValue("yandexDriver.binary");
@@ -17,5 +19,10 @@ public class YandexDriverHelper implements WebDriverHelper {
         driver.manage().window().setSize(new Dimension(1920, 1080));
 
         return driver;
+    }
+
+    @Override
+    public String getCaption() {
+        return caption;
     }
 }

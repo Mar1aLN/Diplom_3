@@ -13,42 +13,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import service.ChromeDriverHelper;
+import service.WebDriverHelperFactory;
 import service.WebDriverHelper;
-import service.YandexDriverHelper;
 
-@RunWith(Parameterized.class)
 public class TestCategoriesSelect {
-    private static final String mainPageUrl = SiteUrls.STELLAR_BURGERS_URL;
+    private static final String MAIN_PAGE_URL = SiteUrls.STELLAR_BURGERS_URL;
 
-    private final String email;
+    private static final String email = "Nikitina3@email.org";
 
-    private final String password;
+    private static final String password = "123456";
 
-    private final String username;
+    private static final String username = "Мария";
 
     private final WebDriverHelper webDriverHelper;
-
-    private final String comment;
 
     private WebDriver driver;
 
     private MainPage mainPage;
 
-    public TestCategoriesSelect(String email, String password, String username, WebDriverHelper webDriverHelper, String comment) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.webDriverHelper = webDriverHelper;
-        this.comment = comment;
-    }
-
-    @Parameterized.Parameters(name = "{4}")
-    public static Object[][] parameters() {
-        return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", new ChromeDriverHelper(), "Chrome"},
-                {"Nikitina3@email.org", "123456", "Мария", new YandexDriverHelper(), "Яндекс.Браузер"},
-        };
+    public TestCategoriesSelect(){
+        webDriverHelper = new WebDriverHelperFactory().createWebDriverHelper();
     }
 
     @Before
@@ -56,7 +40,7 @@ public class TestCategoriesSelect {
     public void before() {
         driver = webDriverHelper.setUpDriver();
 
-        driver.get(mainPageUrl);
+        driver.get(MAIN_PAGE_URL);
 
         mainPage = new MainPage(driver);
 
@@ -65,7 +49,7 @@ public class TestCategoriesSelect {
 
     @Test()
     public void testSelectBuns() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Булки. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Булки. " + webDriverHelper.getCaption()));
 
         mainPage.waitAndClickBunsLink();
 
@@ -74,7 +58,7 @@ public class TestCategoriesSelect {
 
     @Test()
     public void testSelectSauces() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Соусы. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Соусы. " + webDriverHelper.getCaption()));
 
         mainPage.waitAndClickSaucesLink();
 
@@ -83,7 +67,7 @@ public class TestCategoriesSelect {
 
     @Test()
     public void testSelectIngredients() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Ингредиенты. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест выбора категории Ингредиенты. " + webDriverHelper.getCaption()));
 
         mainPage.waitAndClickIngredientsLink();
 

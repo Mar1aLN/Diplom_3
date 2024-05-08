@@ -14,10 +14,13 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import service.ChromeDriverHelper;
 import service.WebDriverHelper;
+import service.WebDriverHelperFactory;
 import service.YandexDriverHelper;
 
 @RunWith(Parameterized.class)
 public class TestRegister {
+    private static final String REGISTER_URL = ApiUrls.STELLAR_BURGERS_URL + SiteUrls.REGISTER_URL;
+
     private final String email;
 
     private final String password;
@@ -28,26 +31,23 @@ public class TestRegister {
     private final String comment;
     private WebDriver driver;
 
-    public TestRegister(String email, String password, String username, WebDriverHelper webDriverHelper, boolean isSuccessExpected, String comment) {
+    public TestRegister(String email, String password, String username, boolean isSuccessExpected, String comment) {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.webDriverHelper = webDriverHelper;
         this.isSuccessExpected = isSuccessExpected;
         this.comment = comment;
+
+        this.webDriverHelper = new WebDriverHelperFactory().createWebDriverHelper();
     }
 
-    @Parameterized.Parameters(name = "{5}")
+    @Parameterized.Parameters(name = "{4}")
     public static Object[][] parameters() {
         return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", new ChromeDriverHelper(), true, "Позитивная проверка регистрации: пароль 6 символов. Chrome"},
-                {"Nikitina3@email.org", "1234567", "Мария", new ChromeDriverHelper(), true, "Позитивная проверка регистрации: пароль 7 символов. Chrome"},
-                {"Nikitina3@email.org", "123456", "Мария", new YandexDriverHelper(), true, "Позитивная проверка регистрации: пароль 6 символов. Яндекс.Браузер"},
-                {"Nikitina3@email.org", "1234567", "Мария", new YandexDriverHelper(), true, "Позитивная проверка регистрации: пароль 7 символов. Яндекс.Браузер"},
-                {"Nikitina3@email.org", "12345", "Мария", new ChromeDriverHelper(), false, "Негативная проверка регистрации: пароль 5 символов. Chrome"},
-                {"Nikitina3@email.org", "1", "Мария", new ChromeDriverHelper(), false, "Негативная проверка регистрации: пароль 1 символ. Chrome"},
-                {"Nikitina3@email.org", "12345", "Мария", new YandexDriverHelper(), false, "Негативная проверка регистрации: пароль 5 символов. Яндекс.Браузер"},
-                {"Nikitina3@email.org", "1", "Мария", new YandexDriverHelper(), false, "Негативная проверка регистрации: пароль 1 символ. Яндекс.Браузер"},
+                {"Nikitina3@email.org", "123456", "Мария", true, "Позитивная проверка регистрации: пароль 6 символов. Chrome"},
+                {"Nikitina3@email.org", "1234567", "Мария", true, "Позитивная проверка регистрации: пароль 7 символов. Chrome"},
+                {"Nikitina3@email.org", "12345", "Мария", false, "Негативная проверка регистрации: пароль 5 символов. Chrome"},
+                {"Nikitina3@email.org", "1", "Мария", false, "Негативная проверка регистрации: пароль 1 символ. Chrome"},
         };
     }
 
@@ -60,8 +60,8 @@ public class TestRegister {
 
     @Test
     public void testRegister() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName(comment));
-        driver.get(ApiUrls.STELLAR_BURGERS_URL + SiteUrls.REGISTER_URL);
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName(comment + "." + webDriverHelper.getCaption()));
+        driver.get(REGISTER_URL);
 
         RegisterPage registerPage = new RegisterPage(driver);
         Assert.assertEquals("Результат рабобты интерфейса не соответствуует ожидаемому", isSuccessExpected, registerPage.tryToRegister(username, email, password));

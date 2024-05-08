@@ -17,47 +17,34 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import service.ChromeDriverHelper;
 import service.WebDriverHelper;
+import service.WebDriverHelperFactory;
 import service.YandexDriverHelper;
 
 import java.time.Duration;
 
-@RunWith(Parameterized.class)
 public class TestEnterPersonalAccount {
-    private static final String loginUrl = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.LOGIN_URL;
+    private static final String LOGIN_URL = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.LOGIN_URL;
 
-    private static final String personalAccountUrl = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.PROFILE_URL;
+    private static final String PERSONAL_ACCOUNT_URL = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.PROFILE_URL;
 
-    private final String email;
+    private static final String email = "Nikitina3@email.org";
 
-    private final String password;
+    private static final String password = "123456";
 
-    private final String username;
+    private static final String username = "Мария";
 
     private final WebDriverHelper webDriverHelper;
 
-    private final String comment;
-
     private WebDriver driver;
 
-    public TestEnterPersonalAccount(String email, String password, String username, WebDriverHelper webDriverHelper, String comment) {
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.webDriverHelper = webDriverHelper;
-        this.comment = comment;
+    public TestEnterPersonalAccount() {
+        webDriverHelper = new WebDriverHelperFactory().createWebDriverHelper();
     }
 
-    @Parameterized.Parameters(name = "{4}")
-    public static Object[][] parameters() {
-        return new Object[][]{
-                {"Nikitina3@email.org", "123456", "Мария", new ChromeDriverHelper(), "Chrome"},
-                {"Nikitina3@email.org", "123456", "Мария", new YandexDriverHelper(), "Яндекс.Браузер"},
-        };
-    }
 
     @Step("Логин перед проверкой перехода в личный кабинет")
     private void login() {
-        driver.get(loginUrl);
+        driver.get(LOGIN_URL);
         LoginPage loginPage = new LoginPage(driver);
         Assert.assertTrue("Успех логина не соответсвует ожидаемому", loginPage.tryLogin(email, password));
     }
@@ -73,11 +60,11 @@ public class TestEnterPersonalAccount {
 
     @Test
     public void enterPersonalCabinetTest() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест перехода в личный каинет. " + comment));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест перехода в личный каинет. " + webDriverHelper.getCaption()));
         MainPage mainPage = new MainPage(driver);
         mainPage.clickEnterPersonalCabinetButton();
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.urlToBe(personalAccountUrl));
-        Assert.assertEquals("После перехода в личный кабинет не отобразилась соответствующая страница", personalAccountUrl, driver.getCurrentUrl());
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.urlToBe(PERSONAL_ACCOUNT_URL));
+        Assert.assertEquals("После перехода в личный кабинет не отобразилась соответствующая страница", PERSONAL_ACCOUNT_URL, driver.getCurrentUrl());
     }
 
 

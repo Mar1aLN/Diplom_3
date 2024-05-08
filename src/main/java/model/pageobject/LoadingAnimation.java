@@ -9,10 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class LoadingAnimation {
-    private final static By loadingAnimation = By.xpath("//img[@alt='loading animation']");
+    private final static By LOADING_ANIMATION = By.xpath("//img[@alt='loading animation']");
 
     @Step("Ожидание анимации загрузки")
     public static void waitForLoadingAnimation(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.invisibilityOfElementLocated(loadingAnimation));
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.invisibilityOfElementLocated(LOADING_ANIMATION));
     }
 }
