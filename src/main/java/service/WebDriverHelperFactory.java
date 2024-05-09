@@ -1,8 +1,7 @@
 package service;
 
-import constants.BrowserTypes;
+import enums.BrowserTypes;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +17,13 @@ public class WebDriverHelperFactory {
     }
 
     @Step("Получение нужного объекта WebDriverHelper по переданному enum")
-    public WebDriverHelper createWebDriverHelper(BrowserTypes.BrowserType browserType){
+    public WebDriverHelper createWebDriverHelper(BrowserTypes.BrowserType browserType) {
         return driversMap.get(browserType);
     }
 
     @Step("Получение типа браузера из .properties с преобразованием в enum, вызов получения WebDriverHelper по enum")
-    public WebDriverHelper createWebDriverHelper(){
-        BrowserTypes.BrowserType browserType = BrowserTypes.BrowserType.valueOf( PropertiesHelper.getPropertyValue("browserType"));
+    public WebDriverHelper createWebDriverHelper() {
+        BrowserTypes.BrowserType browserType = BrowserTypes.BrowserType.valueOf(PropertiesHelper.getPropertyValue("browserType"));
 
         return createWebDriverHelper(browserType);
     }

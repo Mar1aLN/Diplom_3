@@ -14,7 +14,6 @@ public class LoginPage {
 
     private final String loginUrl = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.LOGIN_URL;
 
-
     private final By emailField = By.xpath("//label[text()='Email']/parent::div/input");
 
     private final By passwordField = By.xpath("//label[text()='Пароль']/parent::div/input");

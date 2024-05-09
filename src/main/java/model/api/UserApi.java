@@ -9,11 +9,11 @@ import model.body.RegisterRequestBody;
 import static io.restassured.RestAssured.given;
 
 public class UserApi {
-    private static final String registerUrl = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.REGISTER_HANDLE;
+    private static final String REGISTER_URL = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.REGISTER_HANDLE;
 
-    private static final String loginUrl = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.LOGIN_HANDLE;
+    private static final String LOGIN_URL = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.LOGIN_HANDLE;
 
-    private static final String deleteUrl = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.USER_HANDLE;
+    private static final String DELETE_URL = ApiUrls.STELLAR_BURGERS_URL + ApiUrls.USER_HANDLE;
 
 
     @Step("Регистрация пользователя")
@@ -21,7 +21,7 @@ public class UserApi {
         return given()
                 .header("Content-type", "application/json")
                 .body(registerRequestBody)
-                .post(registerUrl);
+                .post(REGISTER_URL);
     }
 
     @Step("Логин пользователя")
@@ -29,7 +29,7 @@ public class UserApi {
         return given()
                 .header("Content-type", "application/json")
                 .body(loginRequestBody)
-                .post(loginUrl);
+                .post(LOGIN_URL);
     }
 
     @Step("Удаление пользователя")
@@ -38,7 +38,7 @@ public class UserApi {
                 .auth()
                 .oauth2(token)
                 .header("Content-type", "application/json")
-                .delete(deleteUrl);
+                .delete(DELETE_URL);
     }
 
     @Step("Попытка логина пользователя, при усехе - удаление пользователя")

@@ -11,15 +11,11 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import service.ChromeDriverHelper;
 import service.WebDriverHelper;
 import service.WebDriverHelperFactory;
-import service.YandexDriverHelper;
 
 import java.time.Duration;
 

@@ -12,10 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import service.ChromeDriverHelper;
 import service.WebDriverHelper;
 import service.WebDriverHelperFactory;
-import service.YandexDriverHelper;
 
 @RunWith(Parameterized.class)
 public class TestRegister {

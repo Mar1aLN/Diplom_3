@@ -10,11 +10,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import service.WebDriverHelperFactory;
 import service.WebDriverHelper;
+import service.WebDriverHelperFactory;
 
 public class TestCategoriesSelect {
     private static final String MAIN_PAGE_URL = SiteUrls.STELLAR_BURGERS_URL;
@@ -31,7 +29,7 @@ public class TestCategoriesSelect {
 
     private MainPage mainPage;
 
-    public TestCategoriesSelect(){
+    public TestCategoriesSelect() {
         webDriverHelper = new WebDriverHelperFactory().createWebDriverHelper();
     }
 
@@ -71,7 +69,7 @@ public class TestCategoriesSelect {
 
         mainPage.waitAndClickIngredientsLink();
 
-        Assert.assertEquals("Не был выполнен скролл к разделу меню", MenuSections.INGREDIENTS_TEXT.toLowerCase(),mainPage.getCurrentSectionText().toLowerCase());
+        Assert.assertEquals("Не был выполнен скролл к разделу меню", MenuSections.INGREDIENTS_TEXT.toLowerCase(), mainPage.getCurrentSectionText().toLowerCase());
     }
 
     @After

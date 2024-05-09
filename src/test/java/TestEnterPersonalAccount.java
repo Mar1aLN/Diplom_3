@@ -10,15 +10,11 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import service.ChromeDriverHelper;
 import service.WebDriverHelper;
 import service.WebDriverHelperFactory;
-import service.YandexDriverHelper;
 
 import java.time.Duration;
 
@@ -60,7 +56,7 @@ public class TestEnterPersonalAccount {
 
     @Test
     public void enterPersonalCabinetTest() {
-        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест перехода в личный каинет. " + webDriverHelper.getCaption()));
+        Allure.getLifecycle().updateTestCase(testResult -> testResult.setName("Тест перехода в личный кабинет. " + webDriverHelper.getCaption()));
         MainPage mainPage = new MainPage(driver);
         mainPage.clickEnterPersonalCabinetButton();
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.urlToBe(PERSONAL_ACCOUNT_URL));

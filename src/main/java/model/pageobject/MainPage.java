@@ -4,7 +4,6 @@ import constants.MenuSections;
 import constants.SiteUrls;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,9 +20,6 @@ public class MainPage {
     private final By saucesLink = By.xpath("//span[text()='Соусы']");
     private final By ingredientsLink = By.xpath("//span[text()='Начинки']");
     private final By menuItems = By.xpath("//a[@class='BurgerIngredient_ingredient__1TVf6 ml-4 mr-4 mb-8']");
-    private final By bunsTitle = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']/h2[text()='Булки']");
-    private final By saucesTitle = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']/h2[text()='Соусы']");
-    private final By ingredientsTitle = By.xpath("//div[@class='BurgerIngredients_ingredients__menuContainer__Xu3Mo']/h2[text()='Начинки']");
     private final By currentSection = By.xpath("//div[contains(@class, 'tab_type_current')]//span");
 
     private final WebDriver driver;
@@ -73,7 +69,7 @@ public class MainPage {
     }
 
     @Step("Получение текущего раздела меню")
-    public String getCurrentSectionText(){
+    public String getCurrentSectionText() {
         return driver.findElement(currentSection).getText();
     }
 
