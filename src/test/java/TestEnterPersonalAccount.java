@@ -23,11 +23,11 @@ public class TestEnterPersonalAccount {
 
     private static final String PERSONAL_ACCOUNT_URL = SiteUrls.STELLAR_BURGERS_URL + SiteUrls.PROFILE_URL;
 
-    private static final String email = "Nikitina3@email.org";
+    private static final String EMAIL = "Nikitina3@email.org";
 
-    private static final String password = "123456";
+    private static final String PASSWORD = "123456";
 
-    private static final String username = "Мария";
+    private static final String USERNAME = "Мария";
 
     private final WebDriverHelper webDriverHelper;
 
@@ -42,14 +42,14 @@ public class TestEnterPersonalAccount {
     private void login() {
         driver.get(LOGIN_URL);
         LoginPage loginPage = new LoginPage(driver);
-        Assert.assertTrue("Успех логина не соответсвует ожидаемому", loginPage.tryLogin(email, password));
+        Assert.assertTrue("Успех логина не соответсвует ожидаемому", loginPage.tryLogin(EMAIL, PASSWORD));
     }
 
     @Before
     @Step("Создание пользователя перед тестом входа в личный кабинет")
     public void before() {
         driver = webDriverHelper.setUpDriver();
-        UserApi.register(new RegisterRequestBody(email, password, username));
+        UserApi.register(new RegisterRequestBody(EMAIL, PASSWORD, USERNAME));
 
         login();
     }
@@ -68,6 +68,6 @@ public class TestEnterPersonalAccount {
     @Step("Удаление пользователя после теста")
     public void after() {
         driver.quit();
-        UserApi.tryLoginAndDelete(new LoginRequestBody(email, password));
+        UserApi.tryLoginAndDelete(new LoginRequestBody(EMAIL, PASSWORD));
     }
 }

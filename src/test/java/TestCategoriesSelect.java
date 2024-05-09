@@ -17,11 +17,11 @@ import service.WebDriverHelperFactory;
 public class TestCategoriesSelect {
     private static final String MAIN_PAGE_URL = SiteUrls.STELLAR_BURGERS_URL;
 
-    private static final String email = "Nikitina3@email.org";
+    private static final String EMAIL = "Nikitina3@email.org";
 
-    private static final String password = "123456";
+    private static final String PASSWORD = "123456";
 
-    private static final String username = "Мария";
+    private static final String USERNAME = "Мария";
 
     private final WebDriverHelper webDriverHelper;
 
@@ -42,7 +42,7 @@ public class TestCategoriesSelect {
 
         mainPage = new MainPage(driver);
 
-        UserApi.register(new RegisterRequestBody(email, password, username));
+        UserApi.register(new RegisterRequestBody(EMAIL, PASSWORD, USERNAME));
     }
 
     @Test()
@@ -77,6 +77,6 @@ public class TestCategoriesSelect {
     public void after() {
         driver.quit();
 
-        UserApi.tryLoginAndDelete(new LoginRequestBody(email, password));
+        UserApi.tryLoginAndDelete(new LoginRequestBody(EMAIL, PASSWORD));
     }
 }
